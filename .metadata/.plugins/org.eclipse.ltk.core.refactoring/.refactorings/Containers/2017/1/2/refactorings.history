@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Print.java&apos; to &apos;InputAndOutput/src/com.fqy.util&apos;&#x0A;- Original project: &apos;Containers&apos;&#x0A;- Destination element: &apos;InputAndOutput/src/com.fqy.util&apos;&#x0A;- Original element: &apos;com.fqy.util.Print.java&apos;" description="Copy compilation unit" destination="=InputAndOutput/src&lt;com.fqy.util" element1="/src&lt;com.fqy.util{Print.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1484379035501" units="1" version="1.0"/>
+</session>

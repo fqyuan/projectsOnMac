@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.fqy.git.Semaphore.java&apos; to &apos;SemaphoreDemo.java&apos;&#x0A;- Original project: &apos;Concurrency&apos;&#x0A;- Original element: &apos;com.fqy.git.Semaphore.java&apos;&#x0A;- Renamed element: &apos;com.fqy.git.SemaphoreDemo.java&apos;" description="Rename compilation unit &apos;Semaphore.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;com.fqy.git{Semaphore.java" name="SemaphoreDemo.java" references="false" stamp="1494505674714" version="1.0"/>
+</session>

@@ -1,0 +1,5 @@
+package com.fqyuan.blog;
+
+public class DatabaseServiceChecker extends BaseHealthChecker {
+
+}

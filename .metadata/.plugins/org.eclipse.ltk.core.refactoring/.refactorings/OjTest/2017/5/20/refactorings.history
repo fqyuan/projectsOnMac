@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.fqyuan.arrays.ContiSubarray&apos; to &apos;MaxSumContiSubarray&apos;&#x0A;- Original project: &apos;OjTest&apos;&#x0A;- Original element: &apos;com.fqyuan.arrays.ContiSubarray&apos;&#x0A;- Renamed element: &apos;com.fqyuan.arrays.MaxSumContiSubarray&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ContiSubarray&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.fqyuan.arrays{ContiSubarray.java[ContiSubarray" matchStrategy="1" name="MaxSumContiSubarray" qualified="false" references="true" similarDeclarations="false" stamp="1494744293109" textual="false" version="1.0"/>
+</session>

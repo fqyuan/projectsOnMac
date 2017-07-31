@@ -1,0 +1,14 @@
+package com.fqyuan.red_black;
+
+public class RedBlackDemo {
+
+	public static void main(String[] args) {
+		RedBlackTree rbTree = new RedBlackTree();
+		int[] arr = {22,23,4,5,6,7,8,55,3,2,1,6,4};
+		for (int val : arr) {
+			rbTree.insert(val);
+		}
+		rbTree.inOrder();
+	}
+
+}

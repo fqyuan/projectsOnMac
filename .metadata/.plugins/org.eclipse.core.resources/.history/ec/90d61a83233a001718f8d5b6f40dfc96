@@ -1,0 +1,29 @@
+package com.fqy.may;
+
+public class Sync {
+	public static void main(String[] args) {
+		for (int i = 0; i < 100; i++) {
+			new Thread(new Counter()).start();
+		}
+	}
+}
+
+class Counter implements Runnable {
+	Example example = new Example();
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		System.out.println(example.getNextValue());
+	}
+
+}
+
+class Example {
+	private  int value = 0;
+
+	public synchronized int getNextValue() {
+		return value++;
+	}
+
+}

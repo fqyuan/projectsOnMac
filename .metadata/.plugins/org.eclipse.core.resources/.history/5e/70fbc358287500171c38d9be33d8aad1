@@ -1,0 +1,20 @@
+package com.fqyuan.con_singleton;
+
+public class Singleton {
+	private static final Singleton INSTANCE = new Singleton();
+
+	private Singleton() {
+		System.out.println("Constructor.");
+	}
+
+	public static Singleton getInstance() {
+		return INSTANCE;
+	}
+
+	public static void main(String[] args) throws Exception {
+		Class cl;
+		cl = Class.forName("../bin/com/fqyuan/con_singleton/Singleton.class");
+
+		cl.newInstance();
+	}
+}

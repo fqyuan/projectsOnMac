@@ -1,0 +1,10 @@
+package com.fqyuan.blog;
+
+import java.util.concurrent.CountDownLatch;
+
+public class DatabaseServiceChecker extends BaseHealthChecker {
+	public DatabaseHealthChecker(CountDownLatch latch){
+		super("Database service", latch);
+	}
+
+}

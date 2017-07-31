@@ -1,0 +1,13 @@
+package com.fqy.may;
+
+public class Sync {
+
+}
+
+class Example {
+	private int value = 0;
+
+	public int getNextValue() {
+		return value++;
+	}
+}

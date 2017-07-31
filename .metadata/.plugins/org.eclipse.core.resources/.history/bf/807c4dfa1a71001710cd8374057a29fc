@@ -1,0 +1,133 @@
+package com.fqyuan.bst;
+
+public class BSTTree {
+	private Node root;
+
+	public class Node {
+		private int data;
+		private Node lchild;
+		private Node rchild;
+
+		public Node(int item) {
+			data = item;
+		}
+	}
+
+	public BSTTree() {
+		root = null;
+	}
+
+	public boolean isEmpty() {
+		return root == null;
+	}
+
+	public void insert(int item) {
+		if (root == null) {
+			Node newNode = new Node(item);
+			root = newNode;
+			return;
+		}
+
+		// First find the position to insert.
+		Node parent = root;
+		Node currrent = root;
+		while (currrent != null) {
+			parent = currrent;
+			if (item < currrent.data)
+				currrent = currrent.lchild;
+			else
+				currrent = currrent.rchild;
+		}
+		// 'current' is the node to insert, 'parent' is the parent of 'current'.
+		Node newNode = new Node(item);
+		if (item < parent.data)
+			parent.lchild = newNode;
+		else
+			parent.rchild = newNode;
+
+	}
+
+	// 3 cases:
+	public boolean delete(int item) {
+		if (root == null)
+			return false;
+		// First of all, fnid the position to delete.
+		Node current = root;
+		Node parent = root;
+		boolean isLeftChild = false;
+		while (current.data != item) {
+			parent = current;
+			if (item < current.data) {
+				current = current.lchild;
+			} else
+				current = current.rchild;
+			if (current == null)
+				return false;
+		}
+		if (parent.lchild.data == item)
+			isLeftChild = true;
+		else
+			isLeftChild = false;
+
+		// Case 1: if the node to be deleted is a leaf.
+		if (current.lchild == null && current.rchild == null) {
+			if (current == root) {
+				root = null;
+			} else if (isLeftChild) {
+				parent.lchild = null;
+			} else {
+				parent.rchild = null;
+			}
+		}
+		// Case 2: if node to be delted has a child.
+		else if (current.lchild == null) {
+			if (current == root) {
+				root = null;
+			} else if (isLeftChild) {
+				parent.lchild = current.rchild;
+			} else {
+				parent.rchild = current.rchild;
+			}
+		} else if (current.rchild == null) {
+			if (current == root) {
+				root = null;
+			} else if (isLeftChild) {
+				parent.lchild = current.lchild;
+			} else {
+				parent.rchild = current.lchild;
+			}
+		}
+		// Case 3: if node to be deleted has 2 children.
+		else {
+
+		}
+
+		return false;
+	}
+
+	public Node search(int item) {
+		Node current = root;
+		while (current.data != item) {
+			if (item < current.data)
+				current = current.lchild;
+			else if (item > current.data)
+				current = current.rchild;
+			if (current == null)
+				return null;
+		}
+		return current;
+	}
+
+	public void inOrder() {
+		inOrder(root);
+	}
+
+	private void inOrder(Node node) {
+		if (node == null)
+			return;
+		inOrder(node.lchild);
+		System.out.print(node.data + " ");
+		inOrder(node.rchild);
+	}
+
+}

@@ -1,0 +1,57 @@
+package com.fqyuan.bst;
+
+public class BSTTree {
+	private Node root;
+
+	public class Node {
+		private int data;
+		private Node lchild;
+		private Node rchild;
+
+		public Node(int item) {
+			data = item;
+		}
+	}
+
+	public BSTTree() {
+		root = null;
+	}
+
+	public boolean isEmpty() {
+		return root == null;
+	}
+
+	public void insert(int item) {
+
+	}
+
+	public boolean delete(int item) {
+		return false;
+	}
+
+	public Node search(int item) {
+		Node current = root;
+		while(current.data !=item){
+			if(item<current.data)
+				current = current.lchild;
+			else if(item >current.data)
+				current = current.rchild;
+			if(current==null)
+				return null;
+		}
+		return current;
+	}
+
+	public void inOrder() {
+		inOrder(root);
+	}
+
+	private void inOrder(Node node) {
+		if (node == null)
+			return;
+		inOrder(node.lchild);
+		System.out.print(node.data + " ");
+		inOrder(node.rchild);
+	}
+
+}

@@ -1,0 +1,66 @@
+package com.fqyuan.hashtable;
+
+public class HashTable {
+	class LinkedHashEntry {
+		private String key;
+		private int value;
+		private LinkedHashEntry next;
+
+		public LinkedHashEntry(String key, int value) {
+			this.key = key;
+			this.value = value;
+			this.next = null;
+		}
+	}
+
+	private LinkedHashEntry[] table;
+	private int TABLE_SIZE;
+	private int size;
+
+	// Constructor:
+	public HashTable(int capacity) {
+		TABLE_SIZE = capacity;
+		table = new LinkedHashEntry[capacity];
+		size = 0;
+	}
+
+	// Function to get number of key-value pair.
+	public int getSize() {
+		return size;
+	}
+
+	// Function to clear hashtable.
+	public void makeEmpty() {
+		for (int i = 0; i < TABLE_SIZE; i++)
+			table[i] = null;
+	}
+
+	// Function to get value of a key.
+	public int get(String key) {
+		return -1;
+	}
+
+	// Function to insert a key-value pair.
+	public void insert(String key, int value) {
+
+	}
+
+	// Function to remove a key-value pair.
+	public void remove(String key) {
+
+	}
+
+	// Function myHash() which gives a hash value for a given string.
+	private int myHash(String key) {
+		int hashValue = key.hashCode();
+		hashValue %= TABLE_SIZE;
+		if (hashValue < 0)
+			hashValue += TABLE_SIZE;
+		return hashValue;
+	}
+
+	// Function to traverse the hashtable.
+	public void traverse() {
+
+	}
+}

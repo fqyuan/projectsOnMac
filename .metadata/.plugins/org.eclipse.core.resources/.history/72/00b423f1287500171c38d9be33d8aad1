@@ -1,0 +1,11 @@
+package com.fqyuan.con_singleton;
+
+public class Test {
+	public static void main(String[] args) throws Exception {
+
+		Class cl = Class
+				.forName("/Users/fqyuan/Documents/Java_Work/OhterIssues/bin/com/fqyuan/con_singleton/Singleton.class");
+
+		cl.newInstance();
+	}
+}

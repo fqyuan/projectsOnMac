@@ -1,0 +1,153 @@
+package com.fqyuan.hashtable;
+
+public class HashTable {
+	class LinkedHashEntry {
+		private String key;
+		private int value;
+		private LinkedHashEntry next;
+
+		public LinkedHashEntry(String key, int value) {
+			this.key = key;
+			this.value = value;
+			this.next = null;
+		}
+	}
+
+	private LinkedHashEntry[] table;
+	private int TABLE_SIZE;
+	private int size;
+
+	// Constructor:
+	public HashTable(int capacity) {
+		TABLE_SIZE = capacity;
+		table = new LinkedHashEntry[capacity];
+		size = 0;
+	}
+
+	// Function to get number of key-value pair.
+	public int getSize() {
+		return size;
+	}
+
+	// Function to clear hashtable.
+	public void makeEmpty() {
+		// Do not use size to iterate here, or you'll get error output.
+		for (int i = 0; i < TABLE_SIZE; i++)
+			table[i] = null;
+	}
+
+	// Function to get value of a key.
+	public int get(String key) {
+		int hash = myHash(key) % TABLE_SIZE;
+		if (table[hash] == null)
+			return -1;
+		else {
+			LinkedHashEntry entry = table[hash];
+			while (entry != null && !entry.key.equals(key))
+				entry = entry.next;
+			if (entry != null)
+				return entry.value;
+			else
+				return -1;
+		}
+
+	}
+
+	// Function to insert a key-value pair.
+	public void insert(String key, int value) {
+		int hash = myHash(key) % TABLE_SIZE;
+		if (table[hash] == null) {
+			table[hash] = new LinkedHashEntry(key, value);
+			size++;
+		} else {
+			LinkedHashEntry entry = table[hash];
+			LinkedHashEntry prev = null;
+			while (entry != null && !entry.key.equals(key)) {
+				prev = entry;
+				entry = entry.next;
+			}
+			if (entry == null) {
+				prev.next = new LinkedHashEntry(key, value);
+				size++;
+			} else {
+				// If insert a same key, it will update the key-value pair.
+				entry.value = value;
+			}
+		}
+		// size++; //not good here, because insert a duplicate value do not
+		// affect the actual size.
+	}
+
+	// Function to remove a key-value pair.
+	public void remove(String key) {
+		int hash = myHash(key) % TABLE_SIZE;
+		if (table[hash] == null)
+			return;
+		else {
+			LinkedHashEntry entry = table[hash];
+			LinkedHashEntry prev = null;
+			while (entry != null && !entry.key.equals(key)) {
+				prev = entry;
+				entry = entry.next;
+			}
+			if (entry == null)
+				return;
+			else {
+				if (prev == null)
+					table[hash] = entry.next;
+				else
+					prev.next = entry.next;
+				size--;
+			}
+		}
+	}
+
+	// Function myHash() which gives a hash value for a given string.
+	private int myHash(String key) {
+		int hashValue = key.hashCode();
+		hashValue %= TABLE_SIZE;
+		if (hashValue < 0)
+			hashValue += TABLE_SIZE;
+		return hashValue;
+	}
+
+	// Function to traverse the hashtable.
+	public void traverse() {
+		for (int i = 0; i < TABLE_SIZE; i++) {
+			System.out.print("\nSlot " + (i + 1) + ": ");
+			LinkedHashEntry entry = table[i];
+			while (entry != null) {
+				System.out.print(entry.value + " ");
+				entry = entry.next;
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		HashTable hashTable = new HashTable(5);
+
+		hashTable.insert("Ada", 10);
+		hashTable.insert("Basic", 2);
+		hashTable.insert("C", 3);
+		hashTable.insert("C++", 4);
+		hashTable.insert("C#", 5);
+		hashTable.insert("Dog", 0);
+		hashTable.insert("Dog1", 1);
+		hashTable.insert("Dog2", 2);
+		hashTable.insert("Dog3", 3);
+		hashTable.insert("Pascal", 100);
+		hashTable.insert("Fortan", 13);
+		hashTable.insert("Go", 55);
+		hashTable.insert("Java", 64);
+		hashTable.insert("Pascal", 100);
+		hashTable.insert("Pascal0", 101);
+		hashTable.insert("Python", 999);
+
+		System.out.println(hashTable.getSize());
+		hashTable.traverse();
+
+		hashTable.remove("Pascal");
+		System.out.print(hashTable.getSize());
+		hashTable.traverse();
+	}
+}

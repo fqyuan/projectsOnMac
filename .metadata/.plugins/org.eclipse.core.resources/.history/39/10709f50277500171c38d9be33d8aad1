@@ -1,0 +1,9 @@
+package com.fqyuan.con_singleton;
+
+public class Singleton {
+	private static final Singleton = new Singleton();
+	private Singleton(){
+		
+	}
+
+}

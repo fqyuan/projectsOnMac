@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.fqyuan.enumq&apos; to &apos;com.fqyuan.enum1&apos;&#x0A;- Original project: &apos;Enumeration&apos;&#x0A;- Original element: &apos;Enumeration/src/com.fqyuan.enumq&apos;&#x0A;- Renamed element: &apos;Enumeration/src/com.fqyuan.enum1&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;com.fqyuan.enumq&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;com.fqyuan.enumq" name="com.fqyuan.enum1" qualified="false" references="true" stamp="1487814549563" textual="false" version="1.0"/>
+</session>

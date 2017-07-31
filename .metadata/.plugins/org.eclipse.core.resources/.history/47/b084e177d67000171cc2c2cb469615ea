@@ -1,0 +1,250 @@
+package com.fqyuan.red_black;
+
+/*
+ * A red black tree is a binary search tree which fulfills the 5 policies:
+ * 1. Each node is either red or black.
+ * 2. The root node is painted black.
+ * 3. Each leaf node(nil) is painted black.
+ * 4. If a node is red, then both its children is black.
+ * 5. For each node, all simple paths from the node to the descent leaves contain the same number of black nodes.
+ */
+public class RedBlackTree {
+	private Node root;
+
+	private enum COLOR {
+		RED, BLACK
+	};
+
+	private class Node {
+		private Node parent;
+		private Node lchild;
+		private Node rchild;
+		private int color;
+		private int data;
+
+		public Node(int item) {
+			data = item;
+			color = RED;
+			parent = null;
+			lchild = null;
+			rchild = null;
+		}
+	}
+
+	public void insert(int item) {
+		// First, determine if the RBTree is empty.
+		if (root == null) {
+			Node newNode = new Node(item);
+			newNode.color = BLACK;
+			root = newNode;
+			return;
+		}
+		Node current = root;
+		Node parent = root;
+		while (current != null) {
+			parent = current;
+			if (item <= current.data)
+				current = current.lchild;
+			else
+				current = current.rchild;
+		}
+		// The node 'current' is the position to insert
+		Node newNode = new Node(item);
+		newNode.parent = parent;
+
+		if (newNode.data <= parent.data)
+			parent.lchild = newNode;
+		else
+			parent.rchild = newNode;
+		// Do some adjustment.
+		fixInsert(newNode);
+
+	}
+
+	private void fixInsert(Node node) {
+		// Case 0: If node.parent is Black, or node.parent is null. Then, we are
+		// done, wonderful!
+		if (node.parent == null || node.parent.color == BLACK)
+			return;
+
+		// Case 1: Red Uncle is a good uncle. We just need to fix colors.
+		Node uncle = getUncle(node);
+		if (isUncleRed(uncle)) {
+			uncle.color = BLACK;
+			node.parent.color = BLACK;
+			node.parent.parent.color = RED;
+			// Recursive check on the grandparent.
+			fixInsert(node.parent.parent);
+		} else if (isUncleRightUncle(node)) {
+			// Case 3.1: both the node to be inserted and the uncle are on the
+			// same side.
+			if (!isLeftChild(node))
+				rotateLeft(node); // First rotate to convert to case 2.
+
+			// Case 2.1: the node to be inserted and the black uncle are on
+			// opposite side.
+			// Fix colors:
+			node.parent.color = BLACK;
+			node.parent.parent.color = RED;
+			// Fix trees:
+			rotateRight(node.parent);
+		} else {
+			// Case 3.2: both the node to be inserted and the uncle are on the
+			// same side.
+			if (isLeftChild(node))
+				rotateRight(node); // First rotate to convert to case 2.
+
+			// Case 2.2: the node to be inserted and the black uncle are on
+			// opposite side.
+			// Fix colors:
+			node.parent.color = BLACK;
+			node.parent.parent.color = RED;
+			// Fix trees:
+			rotateLeft(node.parent);
+
+		}
+
+	}
+
+	private Node getUncle(Node node) {
+		if (node.parent == null || node.parent.parent == null)
+			return null;
+		if (node.parent == node.parent.parent.lchild) {
+			return node.parent.rchild;
+		} else
+			return node.parent.lchild;
+	}
+
+	private boolean isUncleRed(Node node) {
+		return node != null && node.color == RED;
+	}
+
+	private boolean isUncleRightUncle(Node node) {
+
+		// return node.parent.rchild == node; can not invoke uncle as the
+		// parameter for uncle may be null.
+		return node.parent == node.parent.parent.lchild;
+	}
+
+	private boolean isLeftChild(Node node) {
+		if (node == null || node.parent == null)
+			return false;
+		return node.parent.lchild == node;
+	}
+
+	/**
+	 * <pre>
+	 *          g                              g
+	 *         /                              /
+	 *       x        Left Rotation(y)       y
+	 *      /  \     ---------------->      / \
+	 *  alpha   y                          x   gamma
+	 *         / \                        / \
+	 *      beta gamma                alpha  beta
+	 * </pre>
+	 * 
+	 * @param node
+	 */
+	@SuppressWarnings("unused")
+	private void rotateLeft(Node node) {
+		Node y = node;
+		Node x = node.parent;
+		Node g = node.parent.parent;
+
+		Node alpha = node.parent.lchild; // Not used.
+		Node beta = node.lchild;
+		Node gamma = node.rchild; // Not used.
+
+		y.lchild = x;
+		y.parent = g;
+
+		x.rchild = beta;
+		x.parent = y;
+		if (g != null) {
+			if (isLeftChild(x))
+				g.lchild = y;
+			else
+				g.rchild = y;
+		} else {
+			root = y;
+		}
+		if (beta != null)
+			beta.parent = x;
+	}
+
+	/**
+	 * <pre>
+	 *          g                                   g 
+	 *         /                                   /
+	 *        y        Right Rotation(x)          x
+	 *       / \      ---------------->          / \
+	 *      x   gamma                        alpha  y
+	 *     / \                                     / \
+	 * alpha  beta                             beta  gamma
+	 * </pre>
+	 */
+	@SuppressWarnings("unused")
+	private void rotateRight(Node node) {
+		Node x = node;
+		Node y = node.parent;
+		Node g = node.parent.parent;
+		Node alpha = node.lchild;
+		Node beta = node.rchild;
+		Node gamma = y.rchild;
+
+		x.rchild = y;
+		x.parent = g;
+
+		y.lchild = beta;
+		y.parent = x;
+
+		if (g != null) {
+			if (isLeftChild(y))
+				g.lchild = x;
+			else
+				g.rchild = x;
+		} else {
+			root = x;
+		}
+
+		if (beta != null)
+			beta.parent = y;
+	}
+
+	public boolean search(int item) {
+		if (root == null)
+			return false;
+		Node node = root;
+
+		while (node.data != item) {
+			if (item < node.data)
+				node = node.lchild;
+			else
+				node = node.rchild;
+			if (node == null)
+				return false;
+		}
+		return true;
+	}
+
+	public boolean delete(int item) {
+		return false;
+	}
+
+	public void inOrder() {
+		inOrder(root);
+	}
+
+	private void inOrder(Node node) {
+		if (node != null) {
+			inOrder(node.lchild);
+			System.out.print("Node.data: " + node.data + " Node.color: " + node.color + " Node.parent: "
+					+ node.parent.data + "\n");
+			inOrder(node.rchild);
+		}
+	}
+
+	public void deleteRBTree() {
+
+	}
+}

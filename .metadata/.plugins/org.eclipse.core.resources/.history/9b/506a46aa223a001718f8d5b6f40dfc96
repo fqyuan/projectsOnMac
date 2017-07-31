@@ -1,0 +1,26 @@
+package com.fqy.may;
+
+public class Sync {
+	public static void main(String[] args) {
+		new Sync().syncDemo(20);
+	}
+
+	public void syncDemo(int cnt) {
+		for (int i = 0; i < cnt; i++) {
+			new Thread(new Example()).start();
+		}
+	}
+}
+
+class Example implements Runnable {
+	private int value = 0;
+
+	public int getNextValue() {
+		return value++;
+	}
+
+	@Override
+	public void run() {
+		System.out.println(getNextValue());
+	}
+}

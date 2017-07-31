@@ -1,0 +1,20 @@
+package com.fqyuan.bst;
+
+public class BSTTree {
+	private Node root;
+	public class Node{
+		private int data;
+		private Node lchild;
+		private Node rchild;
+		public Node(int item){
+			data = item;
+		}
+	}
+	public BSTTree(){
+		root = null;
+	}
+	public isEmpty(){
+		return root ==null;
+	}
+	
+}

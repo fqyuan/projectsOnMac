@@ -1,0 +1,5 @@
+package com.fqyuan.philosophy;
+
+public class Philosopher implements Runnable {
+
+}

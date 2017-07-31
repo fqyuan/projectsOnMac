@@ -1,0 +1,23 @@
+package com.fqyuan.blog;
+
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
+public class LatchUtil {
+	private CountDownLatch latch;
+	private List<BaseHealthChecker> list;
+	private static final LatchUtil INSTANCE = new LatchUtil();
+
+	// Singleton pattern
+	private LatchUtil() {
+
+	}
+
+	public static LatchUtil getInstance() {
+		return INSTANCE;
+	}
+	public  static boolean isServicesReady(){
+		
+		return true;
+	}
+}

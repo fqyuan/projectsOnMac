@@ -1,0 +1,203 @@
+package com.fqyuan.bst;
+
+public class BST<T> {
+	class Node {
+		private T data;
+		private Node lchild;
+		private Node rchild;
+
+		public Node(T item) {
+			data = item;
+		}
+	}
+
+	private Node root;
+
+	public BST() {
+		root = null;
+	}
+
+	public boolean isEmpty() {
+		return root == null;
+	}
+
+	// Insert an item into the BST
+	public void insert(T item) {
+		Node newNode = new Node(item);
+		if (isEmpty()) {
+			root = newNode;
+			return;
+		}
+		Node current = root;
+		Node parent = null;
+		// while (true) {
+		// parent = current;
+		// if ((int) item <= (int) current.data) {
+		// current = current.lchild;
+		// if (current == null) {
+		// parent.lchild = newNode;
+		// return;
+		// }
+		// } else {
+		// current = current.rchild;
+		// if (current == null) {
+		// parent.rchild = newNode;
+		// return;
+		// }
+		// }
+		// }
+		// An more elegant way to insert.
+		while (current != null) {
+			parent = current;
+			if ((int) item < (int) current.data)
+				current = current.lchild;
+			else
+				current = current.rchild;
+		}
+		// Find the position to insert: current, with parent as current's
+		// father.
+		if ((int) newNode.data < (int) parent.data)
+			parent.lchild = newNode;
+		else
+			parent.rchild = newNode;
+	}
+
+	//
+	public boolean search(T item) {
+		if (isEmpty()) {
+			System.out.println("The bst is empty.");
+			return false;
+		}
+		Node current = root;
+		boolean found = false;
+		while (current != null && !found) {
+			if ((int) item < (int) current.data) {
+				current = current.lchild;
+			} else if ((int) item > (int) current.data) {
+				current = current.rchild;
+			} else {
+				found = true;
+			}
+		}
+		return found;
+	}
+
+	// Another way, more useful.
+	public Node find(T item) {
+		Node current = root;
+		if (root == null)
+			return null;
+		while (current != null) {
+			if ((int) item < (int) current.data)
+				current = current.lchild;
+			else if((int)item >(int )current.data)
+				current = current.rchild;
+			else {
+				return current;
+			}
+		}
+		return null;
+
+	}
+
+	// The most complicated method with 3 cases.
+	// A private method to delete a node with 2 children.
+	private Node getSuccessor(Node delNode) {
+		Node successor = null;
+		Node successorParent = null;
+		Node current = delNode.rchild;
+
+		// Find the successor node: successor.
+		while (current != null) {
+			successorParent = successor;
+			successor = current;
+			current = current.lchild;
+		}
+
+		if (successor != delNode.rchild) {
+			successorParent.lchild = successor.rchild;
+			successor.rchild = delNode.rchild;
+		}
+		return successor;
+	}
+
+	public boolean delete(T item) {
+		Node current = root;
+		Node parent = root;
+		boolean isLeftChild = false;
+
+		// 1.find the item position first.
+		while ((int) item != (int) current.data) {
+			parent = current;
+			if ((int) item < (int) current.data) {
+				current = current.lchild;
+				isLeftChild = true;
+			} else {
+				current = current.rchild;
+				isLeftChild = false;
+			}
+			if (current == null)
+				return false;
+
+		}
+
+		// If work goes here, it means that the item to be deleted is found.
+
+		// 2. for the case 1--the node to be deleted is a leaf node.
+		if (current.lchild == null && current.rchild == null) {
+			if (current == root) {
+				root = null;
+			} else if (isLeftChild) {
+				parent.lchild = null;
+			} else {
+				parent.rchild = null;
+			}
+		}
+		// 3. for the case 2--the node to be deleted has one child.
+		else if (current.lchild == null) {
+			if (current == root) {
+				root = null;
+			} else if (isLeftChild) {
+				parent.lchild = current.rchild;
+			} else {
+				parent.rchild = current.rchild;
+			}
+		} else if (current.rchild == null) {
+			if (current == root) {
+				root = null;
+			} else if (isLeftChild) {
+				parent.lchild = current.lchild;
+			} else {
+				parent.rchild = current.lchild;
+			}
+		}
+		// 4. for the case 3--the node to be deleted has two children.
+		else {
+			Node successor = getSuccessor(current);
+			if (successor == root) {
+				root = successor;
+			} else if (isLeftChild) {
+				parent.lchild = successor;
+			} else {
+				parent.rchild = successor;
+			}
+			successor.lchild = current.lchild;
+		}
+		return true;
+	}
+
+	//
+	public void inOrder() {
+		inOrder(root);
+	}
+
+	// f
+	private void inOrder(Node root) {
+		if (root != null) {
+			inOrder(root.lchild);
+			System.out.print(root.data + " ");
+			inOrder(root.rchild);
+		}
+	}
+
+}

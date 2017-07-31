@@ -1,0 +1,17 @@
+package com.fqy.may;
+
+public class Sync {
+
+}
+
+class Example implements Runnable{
+	private int value = 0;
+
+	public int getNextValue() {
+		return value++;
+	}
+	@Override
+	public void run(){
+		System.out.println(getNextValue());
+	}
+}
